@@ -5,17 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AFL Quiz Game</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
       background-color: #f1f1f1;
       text-align: center;
-      padding: 30px;
     }
     .quiz-container {
       background: white;
       border-radius: 10px;
       max-width: 700px;
-      margin: auto;
+      margin: 20px auto;
       padding: 30px;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
@@ -56,60 +57,19 @@
 
   <script>
     const questions = [
-      {
-        question: "Who won the AFL Grand Final in 2008?",
-        answer: "Hawthorn",
-        options: ["Geelong", "Hawthorn", "Sydney", "Port Adelaide"]
-      },
-      {
-        question: "Who lost the AFL Grand Final in 2023?",
-        answer: "Brisbane",
-        options: ["Collingwood", "Geelong", "Brisbane", "Richmond"]
-      },
-      {
-        question: "Who won the Brownlow Medal in 2020?",
-        answer: "Lachie Neale",
-        options: ["Patrick Dangerfield", "Lachie Neale", "Dustin Martin", "Marcus Bontempelli"]
-      },
-      {
-        question: "Who won the AFL Grand Final in 2021?",
-        answer: "Melbourne",
-        options: ["Melbourne", "Western Bulldogs", "Sydney", "Geelong"]
-      },
-      {
-        question: "Who lost the AFL Grand Final in 2012?",
-        answer: "Hawthorn",
-        options: ["Sydney", "Hawthorn", "Fremantle", "West Coast"]
-      },
-      {
-        question: "Who won the Brownlow Medal in 2015?",
-        answer: "Nat Fyfe",
-        options: ["Nat Fyfe", "Gary Ablett", "Tom Mitchell", "Chris Judd"]
-      },
-      {
-        question: "Who lost the AFL Grand Final in 2007?",
-        answer: "Port Adelaide",
-        options: ["Geelong", "Brisbane", "Port Adelaide", "Sydney"]
-      },
-      {
-        question: "Who won the Brownlow Medal in 2023?",
-        answer: "Lachie Neale",
-        options: ["Lachie Neale", "Nick Daicos", "Christian Petracca", "Zak Butters"]
-      },
-      {
-        question: "Who won the AFL Grand Final in 2017?",
-        answer: "Richmond",
-        options: ["Adelaide", "Richmond", "West Coast", "Collingwood"]
-      },
-      {
-        question: "Who lost the AFL Grand Final in 2010 replay?",
-        answer: "St Kilda",
-        options: ["Collingwood", "Geelong", "St Kilda", "Fremantle"]
-      }
+      { question: "Who won the AFL Grand Final in 2008?", answer: "Hawthorn", options: ["Geelong", "Hawthorn", "Sydney", "Port Adelaide"] },
+      { question: "Who lost the AFL Grand Final in 2023?", answer: "Brisbane", options: ["Collingwood", "Geelong", "Brisbane", "Richmond"] },
+      { question: "Who won the Brownlow Medal in 2020?", answer: "Lachie Neale", options: ["Patrick Dangerfield", "Lachie Neale", "Dustin Martin", "Marcus Bontempelli"] },
+      { question: "Who won the AFL Grand Final in 2021?", answer: "Melbourne", options: ["Melbourne", "Western Bulldogs", "Sydney", "Geelong"] },
+      { question: "Who lost the AFL Grand Final in 2012?", answer: "Hawthorn", options: ["Sydney", "Hawthorn", "Fremantle", "West Coast"] },
+      { question: "Who won the Brownlow Medal in 2015?", answer: "Nat Fyfe", options: ["Nat Fyfe", "Gary Ablett", "Tom Mitchell", "Chris Judd"] },
+      { question: "Who lost the AFL Grand Final in 2007?", answer: "Port Adelaide", options: ["Geelong", "Brisbane", "Port Adelaide", "Sydney"] },
+      { question: "Who won the Brownlow Medal in 2023?", answer: "Lachie Neale", options: ["Lachie Neale", "Nick Daicos", "Christian Petracca", "Zak Butters"] },
+      { question: "Who won the AFL Grand Final in 2017?", answer: "Richmond", options: ["Adelaide", "Richmond", "West Coast", "Collingwood"] },
+      { question: "Who lost the AFL Grand Final in 2010 replay?", answer: "St Kilda", options: ["Collingwood", "Geelong", "St Kilda", "Fremantle"] }
     ];
 
-    let currentQuestion = 0;
-    let score = 0;
+    let currentQuestion = 0, score = 0;
 
     function showQuestion() {
       const q = questions[currentQuestion];
@@ -144,19 +104,16 @@
 
       setTimeout(() => {
         currentQuestion++;
-        if (currentQuestion < questions.length) {
-          showQuestion();
-        } else {
-          showScore();
-        }
+        currentQuestion < questions.length ? showQuestion() : showScore();
       }, 1000);
     }
 
     function showScore() {
       document.getElementById("quiz").style.display = "none";
-      const message = score >= 8 ? "🎉 Congratulations!" : score >= 5 ? "👍 Not bad!" : "😞 Terrible!";
-      document.getElementById("score-container").style.display = "block";
-      document.getElementById("score-container").innerText = `${message}\nYou scored ${score} out of ${questions.length}`;
+      const msg = score >= 8 ? "🎉 Congratulations!" : score >= 5 ? "👍 Not bad!" : "😞 Terrible!";
+      const container = document.getElementById("score-container");
+      container.style.display = "block";
+      container.innerText = `${msg}\nYou scored ${score} out of ${questions.length}`;
     }
 
     showQuestion();
